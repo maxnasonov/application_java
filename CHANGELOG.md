@@ -2,6 +2,15 @@ application_java Cookbook CHANGELOG
 ===================================
 This file is used to list changes made in each version of the application_java cookbook.
 
+v3.0.2
+------
+* Added `super` call to `RemoteFile::Deploy` initialization
+* Specified `deployment_strategy` in `RemoteFile::Deploy` constructor
+
+v3.0.1
+------
+* ?
+
 
 v3.0.0
 ------
