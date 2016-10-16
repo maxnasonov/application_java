@@ -24,10 +24,10 @@ class Chef
       class Deploy < Chef::Provider::RemoteFile
 
         def initialize(new_resource, run_context)
-          super 
-          
+          super
+
           @deploy_resource = new_resource
-          @new_resource = Chef::Resource::RemoteFile.new(@deploy_resource.name)
+          @new_resource = Chef::Resource::RemoteFile.new(@deploy_resource.name, run_context)
           @new_resource.path ::File.join(@deploy_resource.destination, ::File.basename(@deploy_resource.repository))
           @new_resource.source @deploy_resource.repository
           unless @deploy_resource.revision == "HEAD"
@@ -39,7 +39,7 @@ class Chef
           @current_resource = nil
           @run_context = run_context
           @converge_actions = nil
-          
+
           @deployment_strategy ||= Chef::FileContentManagement::Deploy.strategy(true)
         end
 
@@ -52,8 +52,8 @@ class Chef
         alias :revision_slug :target_revision
 
         def action_sync
-          create_dir_unless_exists(@deploy_resource.destination)
           purge_old_downloads
+          create_dir_unless_exists(@deploy_resource.destination)
           action_create
         end
 
